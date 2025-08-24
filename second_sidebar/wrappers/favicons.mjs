@@ -1,5 +1,9 @@
 import { NetUtilWrapper } from "./net_utils.mjs";
 
+const { PageIconProtocol } = ChromeUtils.import(
+  "resource:///modules/PageIconProtocol.jsm",
+);
+
 export class FaviconsWrapper {
   /**
    *

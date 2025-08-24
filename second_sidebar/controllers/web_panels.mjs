@@ -254,8 +254,10 @@ export class WebPanelsController {
         SidebarControllers.sidebarController.setToolbarTitle(title);
       }
       const webPanelController = this.get(tab.uuid);
-      const notifications = parseNotifications(title);
-      webPanelController.button.setNotificationBadge(notifications);
+      if (webPanelController) {
+        const notifications = parseNotifications(title);
+        webPanelController.button.setNotificationBadge(notifications);
+      }
     });
     // Open/close corresponding web panel when tab is selected
     this.webPanelsBrowser.addTabSelectListener(() => {

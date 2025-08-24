@@ -30,9 +30,15 @@ export class WebPanelButton extends Widget {
     this.soundIcon = new WebPanelSoundIcon();
     this.notificationBadge = new NotificationBadge();
     this.doWhenButtonReady(() => {
-      const badgeStackXUL = this.button.getBadgeStackXUL();
-      badgeStackXUL.appendChild(this.soundIcon.element);
-      badgeStackXUL.appendChild(this.notificationBadge.element);
+      const interval = setInterval(() => {
+        const badgeStackXUL = this.button.getBadgeStackXUL();
+        if (!badgeStackXUL) {
+          return;
+        }
+        clearInterval(interval);
+        badgeStackXUL.appendChild(this.soundIcon.element);
+        badgeStackXUL.appendChild(this.notificationBadge.element);
+      }, 100);
     });
 
     this.setUserContextId(webPanelSettings.userContextId)
