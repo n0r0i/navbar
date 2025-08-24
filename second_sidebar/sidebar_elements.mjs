@@ -49,10 +49,10 @@ export class SidebarElements {
     this.webPanels = new WebPanels();
     this.webPanelsBrowser = new WebPanelsBrowser();
 
-    const toolbox = new XULElement({
-      element: document.getElementById("navigator-toolbox"),
+    const browser = new XULElement({
+      element: document.getElementById("browser"),
     });
-    toolbox.appendChildren(
+    browser.appendChildren(
       this.sidebarSplitterPinned,
       this.sidebarBox.appendChildren(
         this.sidebarBoxFiller,
@@ -68,7 +68,7 @@ export class SidebarElements {
     CustomizableUIWrapper.registerArea(this.sidebarMain.id, {
       defaultPlacements: ["new-web-panel"],
     });
-    CustomizableUIWrapper.registerToolbarNode(this.sidebarMain.getXUL());
+    // CustomizableUIWrapper.registerToolbarNode(this.sidebarMain.getXUL());
   }
 
   static #createWidgets() {
