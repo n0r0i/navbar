@@ -1,9 +1,5 @@
 import { NetUtilWrapper } from "./net_utils.mjs";
 
-const { PageIconProtocol } = Components.utils.import(
-  "resource:///modules/PageIconProtocol.jsm",
-);
-
 export class FaviconsWrapper {
   /**
    *
@@ -15,6 +11,9 @@ export class FaviconsWrapper {
     // A nova API usa PageIconProtocol.getFaviconURIForPage.
     // Ela também retorna um objeto URI, então precisamos pegar a propriedade .spec para obter a string da URL.
     try {
+      const { PageIconProtocol } = Components.utils.import(
+        "resource:///modules/PageIconProtocol.jsm",
+      );
       const uri = NetUtilWrapper.newURI(url);
       // Retorna a URI do ícone da página, que pode então ser usada.
       return PageIconProtocol.getFaviconURIForPage(uri).spec;
