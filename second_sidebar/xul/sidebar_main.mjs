@@ -5,6 +5,7 @@ export class SidebarMain extends Toolbar {
     super({ id: "sb2-main", classList: ["browser-toolbar"] });
     this.setMode("icons")
       .setContext("sb2-main-menupopup")
+      .setAttribute("customizable", "true")
       .setAttribute("fullscreentoolbar", "true")
       .addEventListener("popupshowing", onPopupShowing)
       .addEventListener("command", onCommand)
