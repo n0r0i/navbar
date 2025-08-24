@@ -68,7 +68,7 @@ export class SidebarElements {
     CustomizableUIWrapper.registerArea(this.sidebarMain.id, {
       defaultPlacements: ["new-web-panel"],
     });
-    // CustomizableUIWrapper.registerToolbarNode(this.sidebarMain.getXUL());
+    CustomizableUIWrapper.registerToolbarNode(this.sidebarMain.getXUL());
   }
 
   static #createWidgets() {
