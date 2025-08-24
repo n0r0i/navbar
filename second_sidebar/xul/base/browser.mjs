@@ -126,7 +126,7 @@ export class Browser extends XULElement {
    * @returns {string}
    */
   getTitle() {
-    return this.element.contentTitle;
+    return this.element.contentDocument ? this.element.contentTitle : "";
   }
 
   /**

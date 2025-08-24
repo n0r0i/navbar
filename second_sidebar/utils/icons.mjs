@@ -25,9 +25,9 @@ export const FALLBACK_ICON = "chrome://global/skin/icons/info.svg";
 /**
  *
  * @param {string} url
- * @returns {string}
+ * @returns {Promise<string>}
  */
-export function fetchIconURL(url) {
+export async function fetchIconURL(url) {
   const uri = NetUtilWrapper.newURI(url);
   if (uri.specIgnoringRef in PREDEFINED_ICONS) {
     return PREDEFINED_ICONS[uri.specIgnoringRef];
@@ -35,28 +35,28 @@ export function fetchIconURL(url) {
 
   //FaviconsWrapper.setDefaultIconURIPreferredSize(32);
 
-  return new Promise((resolve) => {
-    FaviconsWrapper.getFaviconURLForPage(uri, async (faviconURI) => {
-      let provider = "browser";
-      let faviconURL = faviconURI?.spec;
-      try {
-        if (!faviconURL) {
-          provider = "google";
-          faviconURL = `https://www.google.com/s2/favicons?domain=${uri.host}&sz=32`;
-          const response = await fetch(faviconURL);
-          if (response.status !== 200) {
-            throw Error(`Got ${response.status} from google`);
-          }
-        }
-      } catch (error) {
-        console.log("Failed to fetch icon:", error);
-        provider = "fallback";
-        faviconURL = "chrome://devtools/skin/images/browsers/firefox.svg";
+  let provider = "browser";
+  let faviconURL = FaviconsWrapper.getFaviconURLForPage(uri.spec);
+
+  try {
+    if (
+      !faviconURL ||
+      faviconURL === "chrome://global/skin/icons/defaultFavicon.svg"
+    ) {
+      provider = "google";
+      faviconURL = `https://www.google.com/s2/favicons?domain=${uri.host}&sz=32`;
+      const response = await fetch(faviconURL);
+      if (response.status !== 200) {
+        throw Error(`Got ${response.status} from google`);
       }
-      console.log(`Got favicon for ${url} from ${provider}`);
-      resolve(faviconURL);
-    });
-  });
+    }
+  } catch (error) {
+    console.log("Failed to fetch icon:", error);
+    provider = "fallback";
+    faviconURL = "chrome://devtools/skin/images/browsers/firefox.svg";
+  }
+  console.log(`Got favicon for ${url} from ${provider}`);
+  return faviconURL;
 }
 
 /**
