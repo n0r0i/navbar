@@ -1,6 +1,6 @@
 import { NetUtilWrapper } from "./net_utils.mjs";
 
-const { PageIconProtocol } = ChromeUtils.import(
+const { PageIconProtocol } = Components.utils.import(
   "resource:///modules/PageIconProtocol.jsm",
 );
 
