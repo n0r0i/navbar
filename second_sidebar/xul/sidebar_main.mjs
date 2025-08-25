@@ -1,12 +1,11 @@
-import { Toolbar } from "./base/toolbar.mjs";
+import { VBox } from "./base/vbox.mjs";
 
-export class SidebarMain extends Toolbar {
+export class SidebarMain extends VBox {
   constructor() {
     super({ id: "sb2-main", classList: ["browser-toolbar"] });
-    this.setMode("icons")
-      .setContext("sb2-main-menupopup")
+    this.setContext("sb2-main-menupopup")
       .setAttribute("customizable", "true")
-      .setAttribute("fullscreentoolbar", "true")
+      .setAttribute("orient", "vertical")
       .addEventListener("popupshowing", onPopupShowing)
       .addEventListener("command", onCommand)
       .addEventListener("mousedown", onMouseDown)
