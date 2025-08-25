@@ -7,6 +7,7 @@ export class SidebarMain extends Toolbar {
       .setContext("sb2-main-menupopup")
       .setAttribute("customizable", "true")
       .setAttribute("fullscreentoolbar", "true")
+      .setAttribute("flex", "1")
       .addEventListener("popupshowing", onPopupShowing)
       .addEventListener("command", onCommand)
       .addEventListener("mousedown", onMouseDown)
