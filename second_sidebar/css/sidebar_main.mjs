@@ -1,4 +1,9 @@
 export const SIDEBAR_MAIN_CSS = `
+  #sb2-main-toolbox {
+    min-width: 48px;
+    background-color: red;
+  }
+
   #sb2-main {
     display: flex;
     flex-direction: column;
