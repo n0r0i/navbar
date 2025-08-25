@@ -249,13 +249,18 @@ export class WebPanelsController {
     });
     // Change toolbar title when title of selected tab is changed
     this.webPanelsBrowser.addPageTitleChangeListener((tab) => {
+      if (!tab.linkedBrowser.element.contentDocument) {
+        return;
+      }
       const title = tab.linkedBrowser.getTitle();
       if (tab.selected) {
         SidebarControllers.sidebarController.setToolbarTitle(title);
       }
       const webPanelController = this.get(tab.uuid);
-      const notifications = parseNotifications(title);
-      webPanelController.button.setNotificationBadge(notifications);
+      if (webPanelController) {
+        const notifications = parseNotifications(title);
+        webPanelController.button.setNotificationBadge(notifications);
+      }
     });
     // Open/close corresponding web panel when tab is selected
     this.webPanelsBrowser.addTabSelectListener(() => {
