@@ -1,12 +1,12 @@
 export const SIDEBAR_MAIN_CSS = `
   #sb2-main-toolbox {
     min-width: 48px;
-    background-color: red;
   }
 
   #sb2-main {
     display: flex;
     flex-direction: column;
+    flex: 1;
     justify-content: var(--sb2-main-web-panel-buttons-position);
     gap: var(--space-small);
     padding: 0 var(--sb2-main-padding) var(--space-small) var(--sb2-main-padding);
