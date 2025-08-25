@@ -66,6 +66,7 @@ export class SidebarElements {
 
   static #registerSidebar() {
     CustomizableUIWrapper.registerArea(this.sidebarMain.id, {
+      type: CustomizableUIWrapper.TYPE_PANEL,
       defaultPlacements: ["new-web-panel"],
     });
   }
