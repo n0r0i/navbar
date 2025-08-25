@@ -12,29 +12,19 @@ import { WebPanelsController } from "./controllers/web_panels.mjs";
 
 export class SidebarControllers {
   static create() {
-    console.log("FSS: Creating sidebar controllers...");
     this.sidebarMainController = new SidebarMainController();
-    console.log("FSS: sidebarMainController created.");
     this.sidebarMainSettingsController = new SidebarMainSettingsController();
-    console.log("FSS: sidebarMainSettingsController created.");
     this.sidebarController = new SidebarController();
-    console.log("FSS: sidebarController created.");
-    this.sidebarSplittersController = new SidebarSplittersController();
-    console.log("FSS: sidebarSplittersController created.");
     this.webPanelsController = new WebPanelsController();
-    console.log("FSS: webPanelsController created.");
+    this.sidebarSplittersController = new SidebarSplittersController({
+      webPanelsController: this.webPanelsController,
+      sidebarController: this.sidebarController,
+    });
     this.webPanelNewController = new WebPanelNewController();
-    console.log("FSS: webPanelNewController created.");
     this.webPanelEditController = new WebPanelEditController();
-    console.log("FSS: webPanelEditController created.");
     this.webPanelMoreController = new WebPanelMoreController();
-    console.log("FSS: webPanelMoreController created.");
     this.webPanelDeleteController = new WebPanelDeleteController();
-    console.log("FSS: webPanelDeleteController created.");
     this.contextMenuItemsController = new ContextMenuItemsController();
-    console.log("FSS: contextMenuItemsController created.");
     this.collapseController = new CollapseController();
-    console.log("FSS: collapseController created.");
-    console.log("FSS: All sidebar controllers created successfully.");
   }
 }

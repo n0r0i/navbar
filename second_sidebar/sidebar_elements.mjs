@@ -8,6 +8,7 @@ import { SidebarMain } from "./xul/sidebar_main.mjs";
 import { SidebarMainMenuPopup } from "./xul/sidebar_main_menupopup.mjs";
 import { SidebarMainPopupSettings } from "./xul/sidebar_main_popup_settings.mjs";
 import { SidebarSplitterPinned } from "./xul/sidebar_splitter_pinned.mjs";
+import { Toolbox } from "./xul/base/toolbox.mjs";
 import { SidebarSplitterUnpinned } from "./xul/sidebar_splitter_unpinned.mjs";
 import { SidebarToolbar } from "./xul/sidebar_toolbar.mjs";
 import { WebPanelMenuPopup } from "./xul/web_panel_menupopup.mjs";
@@ -59,7 +60,7 @@ export class SidebarElements {
         this.sidebarSplitterUnpinned,
         this.sidebar.appendChildren(this.sidebarToolbar, this.webPanels),
       ),
-      this.sidebarMain,
+      new Toolbox({ id: "sb2-main-toolbox" }).appendChild(this.sidebarMain),
     );
     this.webPanels.appendChild(this.webPanelsBrowser);
   }

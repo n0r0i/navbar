@@ -1,10 +1,11 @@
 import { SidebarEvents, sendEvents } from "./events.mjs";
 
-import { SidebarControllers } from "../sidebar_controllers.mjs";
 import { SidebarElements } from "../sidebar_elements.mjs";
 
 export class SidebarSplittersController {
-  constructor() {
+  constructor({ webPanelsController, sidebarController }) {
+    this.webPanelsController = webPanelsController;
+    this.sidebarController = sidebarController;
     this.sidebarSplitterUnpinned = SidebarElements.sidebarSplitterUnpinned;
     this.sidebarSplitterPinned = SidebarElements.sidebarSplitterPinned;
 
@@ -14,19 +15,18 @@ export class SidebarSplittersController {
   #setupListeners() {
     /**@param {number} width */
     const changeWidth = (width) => {
-      const webPanelController =
-        SidebarControllers.webPanelsController.getActive();
+      const webPanelController = this.webPanelsController.getActive();
       sendEvents(SidebarEvents.EDIT_SIDEBAR_WIDTH, {
         uuid: webPanelController.getUUID(),
         width,
       });
-      SidebarControllers.webPanelsController.saveSettings();
+      this.webPanelsController.saveSettings();
     };
     this.sidebarSplitterUnpinned.listenWidthChange(() =>
-      changeWidth(SidebarControllers.sidebarController.getSidebarWidth()),
+      changeWidth(this.sidebarController.getSidebarWidth()),
     );
     this.sidebarSplitterPinned.listenWidthChange(() =>
-      changeWidth(SidebarControllers.sidebarController.getSidebarBoxWidth()),
+      changeWidth(this.sidebarController.getSidebarBoxWidth()),
     );
   }
 }
