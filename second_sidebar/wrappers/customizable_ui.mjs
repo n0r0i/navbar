@@ -30,12 +30,15 @@ export class CustomizableUIWrapper {
       defaultPlacements = [],
     } = {},
   ) {
-    CustomizableUI.registerArea(id, {
+    const properties = {
       type,
-      defaultCollapsed,
-      overflowable,
       defaultPlacements,
-    });
+    };
+    if (type === this.TYPE_TOOLBAR) {
+      properties.defaultCollapsed = defaultCollapsed;
+      properties.overflowable = overflowable;
+    }
+    CustomizableUI.registerArea(id, properties);
   }
 
   /**
