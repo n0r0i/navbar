@@ -24,9 +24,7 @@ const ICONS = {
 export class SidebarToolbar extends Toolbar {
   constructor() {
     super({ id: "sb2-toolbar" });
-    this.setMode("icons")
-      .setAttribute("fullscreentoolbar", "true")
-      .setAttribute("orient", "vertical");
+    this.setMode("icons").setAttribute("fullscreentoolbar", "true");
 
     // Navigation buttons
     this.backButton = this.#createButton("Back", ICONS.BACK);

@@ -29,15 +29,14 @@ export class WebPanelButton extends Widget {
 
     this.soundIcon = new WebPanelSoundIcon();
     this.notificationBadge = new NotificationBadge();
-    this.doWhenButtonReady(() => {
+    this.doWhenBadgeReady(() => {
       const badgeStackXUL = this.button.getBadgeStackXUL();
       badgeStackXUL.appendChild(this.soundIcon.element);
       badgeStackXUL.appendChild(this.notificationBadge.element);
+      this.setUserContextId(webPanelSettings.userContextId);
     });
 
-    this.setUserContextId(webPanelSettings.userContextId)
-      .setLabel(webPanelSettings.url)
-      .setTooltipText(webPanelSettings.url);
+    this.setLabel(webPanelSettings.url).setTooltipText(webPanelSettings.url);
 
     this.hideSoundIcon(webPanelSettings.hideSoundIcon);
     this.hideNotificationBadge(webPanelSettings.hideNotificationBadge);
@@ -45,6 +44,22 @@ export class WebPanelButton extends Widget {
     useAvailableIcon(webPanelSettings.faviconURL, FALLBACK_ICON).then(
       (faviconURL) => this.setIcon(faviconURL),
     );
+  }
+
+  /**
+   *
+   * @param {function():void} callback
+   * @returns {WebPanelButton}
+   */
+  doWhenBadgeReady(callback) {
+    const interval = setInterval(() => {
+      if (!this.button || !this.button.getBadgeStackXUL()) {
+        return;
+      }
+      clearInterval(interval);
+      callback();
+    }, 100);
+    return this;
   }
 
   /**
@@ -145,7 +160,7 @@ export class WebPanelButton extends Widget {
    * @returns {WebPanelButton}
    */
   setUserContextId(userContextId) {
-    return this.doWhenButtonReady(() =>
+    return this.doWhenBadgeReady(() =>
       this.doWhenButtonImageReady(() =>
         applyContainerColor(userContextId, this.button.getBadgeStackXUL()),
       ),
